@@ -12,4 +12,10 @@ class Api::User < Api::Base
       Api::Task.new task_attrs.merge(user: self)
     end
   end
+
+  def search_tasks(title, options = {})
+    load_resource('api/v2/tasks/search.json', options.merge(title: title)).map do |task_attrs|
+      Api::Task.new task_attrs.merge(user: self)
+    end
+  end
 end
