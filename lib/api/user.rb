@@ -1,6 +1,5 @@
 class Api::User < Api::Base
   attribute :email, String
-  attribute :links, Array
 
   def self.from_token(access_token)
     new load_resource(access_token, 'api/v2/users/whoami.json').merge(access_token: access_token)
