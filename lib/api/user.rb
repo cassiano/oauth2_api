@@ -1,5 +1,6 @@
 class Api::User < Api::Base
   attribute :email, String
+  attribute :links, Array
 
   def self.from_token(access_token)
     new load_resource(access_token, 'api/v2/users/whoami.json').merge(access_token: access_token)
@@ -8,13 +9,13 @@ class Api::User < Api::Base
   def tasks(reload = false)
     @tasks = nil if reload
 
-    @tasks ||= load_resource('api/v2/tasks.json').map do |task_attrs|
+    @tasks ||= load_resource(:tasks).map do |task_attrs|
       Api::Task.new task_attrs.merge(user: self)
     end
   end
 
   def search_tasks(title, options = {})
-    load_resource('api/v2/tasks/search.json', options.merge(title: title)).map do |task_attrs|
+    load_resource(:search, options.merge(title: title)).map do |task_attrs|
       Api::Task.new task_attrs.merge(user: self)
     end
   end

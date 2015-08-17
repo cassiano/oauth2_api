@@ -7,7 +7,11 @@ class Api::Base
     access_token.get(uri, params: params).parsed
   end
 
-  def load_resource(uri, params = {})
-    self.class.load_resource(access_token, uri, params)
+  def load_resource(link_name, params = {})
+    self.class.load_resource(access_token, link(link_name), params)
+  end
+
+  def link(name)
+    links && (link = links.find { |link| link['rel'] == name.to_s }) && link['href']
   end
 end
