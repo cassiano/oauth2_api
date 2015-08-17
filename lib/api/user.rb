@@ -1,4 +1,5 @@
 class Api::User < Api::Base
+  attribute :id, Integer
   attribute :email, String
 
   def self.from_token(access_token)
