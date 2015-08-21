@@ -9,10 +9,10 @@ class Api::User < Api::Base
   def tasks(reload = false)
     @tasks = nil if reload
 
-    @tasks ||= load_resource(:tasks, {}, Api::Task, user: self)
+    @tasks ||= follow_link(:tasks, {}, Api::Task, user: self)
   end
 
   def search_tasks(title, options = {})
-    load_resource :search, options.merge(title: title), Api::Task, user: self
+    follow_link :search_tasks, options.merge(title: title), Api::Task, user: self
   end
 end

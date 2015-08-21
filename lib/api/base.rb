@@ -13,7 +13,7 @@ class Api::Base
     end
   end
 
-  def load_resource(link_name, params, klass, additional_attrs = {})
+  def follow_link(link_name, params, klass, additional_attrs = {})
     self.class.load_resource access_token, link(link_name), params, klass, additional_attrs
   end
 
